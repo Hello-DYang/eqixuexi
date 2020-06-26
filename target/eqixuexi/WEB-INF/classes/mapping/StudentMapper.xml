@@ -3,13 +3,16 @@
 <mapper namespace="com.mapping.StudentMapper">
   <resultMap id="BaseResultMap" type="com.entity.Student">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="schoolid" jdbcType="INTEGER" property="schoolid" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="phone" jdbcType="INTEGER" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, icon, nickname, password, sex, birthday, phone, email
+    id, schoolid, icon, nickname, name, password, sex, birthday, phone, email, status
   </sql>
   <select id="selectByExample" parameterType="com.entity.StudentExample" resultMap="BaseResultMap">
     select
@@ -103,12 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.entity.Student">
-    insert into student (id, icon, nickname, 
-      password, sex, birthday, 
-      phone, email)
-    values (#{id,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{phone,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR})
+    insert into student (id, schoolid, icon, 
+      nickname, name, password, 
+      sex, birthday, phone, 
+      email, status)
+    values (#{id,jdbcType=INTEGER}, #{schoolid,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{phone,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.entity.Student">
     insert into student
@@ -116,11 +121,17 @@
       <if test="id != null">
         id,
       </if>
+      <if test="schoolid != null">
+        schoolid,
+      </if>
       <if test="icon != null">
         icon,
       </if>
       <if test="nickname != null">
         nickname,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="password != null">
         password,
@@ -137,16 +148,25 @@
       <if test="email != null">
         email,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null">
+        #{schoolid,jdbcType=INTEGER},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -163,6 +183,9 @@
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.entity.StudentExample" resultType="java.lang.Long">
@@ -177,11 +200,17 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.schoolid != null">
+        schoolid = #{record.schoolid,jdbcType=INTEGER},
+      </if>
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
@@ -198,6 +227,9 @@
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -206,13 +238,16 @@
   <update id="updateByExample" parameterType="map">
     update student
     set id = #{record.id,jdbcType=INTEGER},
+      schoolid = #{record.schoolid,jdbcType=INTEGER},
       icon = #{record.icon,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=VARCHAR},
       birthday = #{record.birthday,jdbcType=DATE},
       phone = #{record.phone,jdbcType=INTEGER},
-      email = #{record.email,jdbcType=VARCHAR}
+      email = #{record.email,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -220,11 +255,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.entity.Student">
     update student
     <set>
+      <if test="schoolid != null">
+        schoolid = #{schoolid,jdbcType=INTEGER},
+      </if>
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -241,18 +282,24 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.entity.Student">
     update student
-    set icon = #{icon,jdbcType=VARCHAR},
+    set schoolid = #{schoolid,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
       phone = #{phone,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR}
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

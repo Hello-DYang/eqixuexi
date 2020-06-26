@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapping.ClassifyMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Classify">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="classifyname" jdbcType="VARCHAR" property="classifyname" />
+    <result column="directionId" jdbcType="INTEGER" property="directionid" />
+    <result column="studentnum" jdbcType="INTEGER" property="studentnum" />
+    <result column="fbtime" jdbcType="CHAR" property="fbtime" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, classifyname, directionId, studentnum, fbtime, icon, href
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.ClassifyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from classify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classify
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classify
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.ClassifyExample">
+    delete from classify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Classify">
+    insert into classify (id, classifyname, directionId, 
+      studentnum, fbtime, icon, 
+      href)
+    values (#{id,jdbcType=INTEGER}, #{classifyname,jdbcType=VARCHAR}, #{directionid,jdbcType=INTEGER}, 
+      #{studentnum,jdbcType=INTEGER}, #{fbtime,jdbcType=CHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{href,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Classify">
+    insert into classify
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="classifyname != null">
+        classifyname,
+      </if>
+      <if test="directionid != null">
+        directionId,
+      </if>
+      <if test="studentnum != null">
+        studentnum,
+      </if>
+      <if test="fbtime != null">
+        fbtime,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="href != null">
+        href,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="classifyname != null">
+        #{classifyname,jdbcType=VARCHAR},
+      </if>
+      <if test="directionid != null">
+        #{directionid,jdbcType=INTEGER},
+      </if>
+      <if test="studentnum != null">
+        #{studentnum,jdbcType=INTEGER},
+      </if>
+      <if test="fbtime != null">
+        #{fbtime,jdbcType=CHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        #{href,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.ClassifyExample" resultType="java.lang.Long">
+    select count(*) from classify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update classify
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.classifyname != null">
+        classifyname = #{record.classifyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directionid != null">
+        directionId = #{record.directionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentnum != null">
+        studentnum = #{record.studentnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.fbtime != null">
+        fbtime = #{record.fbtime,jdbcType=CHAR},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.href != null">
+        href = #{record.href,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update classify
+    set id = #{record.id,jdbcType=INTEGER},
+      classifyname = #{record.classifyname,jdbcType=VARCHAR},
+      directionId = #{record.directionid,jdbcType=INTEGER},
+      studentnum = #{record.studentnum,jdbcType=INTEGER},
+      fbtime = #{record.fbtime,jdbcType=CHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      href = #{record.href,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Classify">
+    update classify
+    <set>
+      <if test="classifyname != null">
+        classifyname = #{classifyname,jdbcType=VARCHAR},
+      </if>
+      <if test="directionid != null">
+        directionId = #{directionid,jdbcType=INTEGER},
+      </if>
+      <if test="studentnum != null">
+        studentnum = #{studentnum,jdbcType=INTEGER},
+      </if>
+      <if test="fbtime != null">
+        fbtime = #{fbtime,jdbcType=CHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Classify">
+    update classify
+    set classifyname = #{classifyname,jdbcType=VARCHAR},
+      directionId = #{directionid,jdbcType=INTEGER},
+      studentnum = #{studentnum,jdbcType=INTEGER},
+      fbtime = #{fbtime,jdbcType=CHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

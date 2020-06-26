@@ -5,9 +5,13 @@ import java.util.Date;
 public class Student {
     private Integer id;
 
+    private Integer schoolid;
+
     private String icon;
 
     private String nickname;
+
+    private String name;
 
     private String password;
 
@@ -19,12 +23,22 @@ public class Student {
 
     private String email;
 
+    private String status;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getSchoolid() {
+        return schoolid;
+    }
+
+    public void setSchoolid(Integer schoolid) {
+        this.schoolid = schoolid;
     }
 
     public String getIcon() {
@@ -41,6 +55,14 @@ public class Student {
 
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getPassword() {
@@ -81,5 +103,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

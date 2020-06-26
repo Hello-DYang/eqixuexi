@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapping.HomeWorkMapper">
+  <resultMap id="BaseResultMap" type="com.entity.HomeWork">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="coursename" jdbcType="VARCHAR" property="coursename" />
+    <result column="hometitle" jdbcType="VARCHAR" property="hometitle" />
+    <result column="download" jdbcType="VARCHAR" property="download" />
+    <result column="upload" jdbcType="VARCHAR" property="upload" />
+    <result column="fbtime" jdbcType="DATE" property="fbtime" />
+    <result column="lastTime" jdbcType="DATE" property="lasttime" />
+    <result column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="studentid" jdbcType="INTEGER" property="studentid" />
+    <result column="teacherid" jdbcType="INTEGER" property="teacherid" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, coursename, hometitle, download, upload, fbtime, lastTime, courseid, studentid, 
+    teacherid, status, score
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.HomeWorkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from homework
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from homework
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.HomeWorkExample">
+    delete from homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.HomeWork">
+    insert into homework (id, coursename, hometitle, 
+      download, upload, fbtime, 
+      lastTime, courseid, studentid, 
+      teacherid, status, score
+      )
+    values (#{id,jdbcType=INTEGER}, #{coursename,jdbcType=VARCHAR}, #{hometitle,jdbcType=VARCHAR}, 
+      #{download,jdbcType=VARCHAR}, #{upload,jdbcType=VARCHAR}, #{fbtime,jdbcType=DATE}, 
+      #{lasttime,jdbcType=DATE}, #{courseid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, 
+      #{teacherid,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.HomeWork">
+    insert into homework
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="coursename != null">
+        coursename,
+      </if>
+      <if test="hometitle != null">
+        hometitle,
+      </if>
+      <if test="download != null">
+        download,
+      </if>
+      <if test="upload != null">
+        upload,
+      </if>
+      <if test="fbtime != null">
+        fbtime,
+      </if>
+      <if test="lasttime != null">
+        lastTime,
+      </if>
+      <if test="courseid != null">
+        courseid,
+      </if>
+      <if test="studentid != null">
+        studentid,
+      </if>
+      <if test="teacherid != null">
+        teacherid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coursename != null">
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="hometitle != null">
+        #{hometitle,jdbcType=VARCHAR},
+      </if>
+      <if test="download != null">
+        #{download,jdbcType=VARCHAR},
+      </if>
+      <if test="upload != null">
+        #{upload,jdbcType=VARCHAR},
+      </if>
+      <if test="fbtime != null">
+        #{fbtime,jdbcType=DATE},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=DATE},
+      </if>
+      <if test="courseid != null">
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null">
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.HomeWorkExample" resultType="java.lang.Long">
+    select count(*) from homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update homework
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursename != null">
+        coursename = #{record.coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hometitle != null">
+        hometitle = #{record.hometitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.download != null">
+        download = #{record.download,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upload != null">
+        upload = #{record.upload,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbtime != null">
+        fbtime = #{record.fbtime,jdbcType=DATE},
+      </if>
+      <if test="record.lasttime != null">
+        lastTime = #{record.lasttime,jdbcType=DATE},
+      </if>
+      <if test="record.courseid != null">
+        courseid = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null">
+        studentid = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherid != null">
+        teacherid = #{record.teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update homework
+    set id = #{record.id,jdbcType=INTEGER},
+      coursename = #{record.coursename,jdbcType=VARCHAR},
+      hometitle = #{record.hometitle,jdbcType=VARCHAR},
+      download = #{record.download,jdbcType=VARCHAR},
+      upload = #{record.upload,jdbcType=VARCHAR},
+      fbtime = #{record.fbtime,jdbcType=DATE},
+      lastTime = #{record.lasttime,jdbcType=DATE},
+      courseid = #{record.courseid,jdbcType=INTEGER},
+      studentid = #{record.studentid,jdbcType=INTEGER},
+      teacherid = #{record.teacherid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.HomeWork">
+    update homework
+    <set>
+      <if test="coursename != null">
+        coursename = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="hometitle != null">
+        hometitle = #{hometitle,jdbcType=VARCHAR},
+      </if>
+      <if test="download != null">
+        download = #{download,jdbcType=VARCHAR},
+      </if>
+      <if test="upload != null">
+        upload = #{upload,jdbcType=VARCHAR},
+      </if>
+      <if test="fbtime != null">
+        fbtime = #{fbtime,jdbcType=DATE},
+      </if>
+      <if test="lasttime != null">
+        lastTime = #{lasttime,jdbcType=DATE},
+      </if>
+      <if test="courseid != null">
+        courseid = #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null">
+        studentid = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        teacherid = #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.HomeWork">
+    update homework
+    set coursename = #{coursename,jdbcType=VARCHAR},
+      hometitle = #{hometitle,jdbcType=VARCHAR},
+      download = #{download,jdbcType=VARCHAR},
+      upload = #{upload,jdbcType=VARCHAR},
+      fbtime = #{fbtime,jdbcType=DATE},
+      lastTime = #{lasttime,jdbcType=DATE},
+      courseid = #{courseid,jdbcType=INTEGER},
+      studentid = #{studentid,jdbcType=INTEGER},
+      teacherid = #{teacherid,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
